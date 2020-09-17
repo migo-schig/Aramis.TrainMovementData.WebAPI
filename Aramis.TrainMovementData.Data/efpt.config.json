@@ -1,0 +1,61 @@
+﻿{
+   "ContextClassName": "AramisDbContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": null,
+   "ProjectRootNamespace": "Aramis.TrainMovementData.Data",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[BasicData]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Delay]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[GeoData]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Log]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Modification]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Notification]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Remark]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[SectionOfLine]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Vehicle]"
+      }
+   ],
+   "UseDatabaseNames": true,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseNodaTime": false,
+   "UseSpatial": false,
+   "UseStoredProcedures": false
+}

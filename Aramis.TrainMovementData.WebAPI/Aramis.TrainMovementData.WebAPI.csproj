@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aramis.TrainMovementData.WebAPI.Configuration\Aramis.TrainMovementData.WebAPI.Configuration.csproj" />
+    <ProjectReference Include="..\Aramis.TrainMovementData.WebAPI.Data\Aramis.TrainMovementData.WebAPI.Data.csproj" />
+    <ProjectReference Include="..\Aramis.TrainMovementData.WebAPI.Services\Aramis.TrainMovementData.WebAPI.Services.csproj" />
+  </ItemGroup>
+
+
+</Project>
