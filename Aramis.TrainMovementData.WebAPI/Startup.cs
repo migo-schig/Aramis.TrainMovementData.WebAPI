@@ -29,6 +29,8 @@ namespace Aramis.TrainMovementData.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddCors();
             DbConnectionStringBuilder connectionStringBuilder = new DbConnectionStringBuilder
             {
                 ConnectionString = Configuration.GetConnectionString("Default")
@@ -50,6 +52,8 @@ namespace Aramis.TrainMovementData.WebAPI
             }
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
