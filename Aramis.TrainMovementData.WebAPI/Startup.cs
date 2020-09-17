@@ -58,7 +58,7 @@ namespace Aramis.TrainMovementData.WebAPI
 
             app.UseRouting();
 
-            app.UseCors();
+            app.UseCors("MyPolicy");
 
             app.UseAuthorization();
 
