@@ -45,7 +45,9 @@ namespace Aramis.TrainMovementData.WebAPI
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"))
                 .AddDbContext<AramisDbContext>(ServiceLifetime.Transient)
                 .AddSingleton(connectionStringBuilder)
-                .AddTransient<IGeoDataRepository, GeoDataRepository>();
+                .AddTransient<IGeoDataRepository, GeoDataRepository>()
+                .AddTransient<ITrainnumberRepository, TrainnumberRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

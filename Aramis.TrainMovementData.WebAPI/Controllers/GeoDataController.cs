@@ -1,6 +1,8 @@
 ﻿using Aramis.TrainMovementData.Data;
 using Aramis.TrainMovementData.WebAPI.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System;
 using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,9 +27,21 @@ namespace Aramis.TrainMovementData.WebAPI.Controllers
         }
 
         [HttpGet("station/{station}")]
-        public IEnumerable<GeoData> GetByStation(string station)
+        public GeoData GetByStation(string station)
         {
-            return geoDataRepository.GetByStation(station);
+            return geoDataRepository.Get(station);
+        }
+
+        [HttpGet("station/autocomplete/{station}")]
+        public IEnumerable<GeoData> GetByStationAutocomplete(string station)
+        {
+            return geoDataRepository.GetLike(station);
+        }
+
+        [HttpGet("trainnumber/{trainnumber}/date/{date}")]
+        public IEnumerable<GeoData> GetByStation(string trainnumber, DateTime date)
+        {
+            return geoDataRepository.Get(trainnumber, date);
         }
 
         //// GET api/<ValuesController>/5

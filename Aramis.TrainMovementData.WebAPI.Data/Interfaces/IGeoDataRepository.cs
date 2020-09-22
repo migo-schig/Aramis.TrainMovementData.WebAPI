@@ -1,4 +1,5 @@
 ﻿using Aramis.TrainMovementData.Data;
+using System;
 using System.Collections.Generic;
 
 namespace Aramis.TrainMovementData.WebAPI.Data.Interfaces
@@ -6,6 +7,8 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Interfaces
     public interface IGeoDataRepository
     {
         IEnumerable<GeoData> GetAll();
-        IEnumerable<GeoData> GetByStation(string station);
+        GeoData Get(string station);
+        IEnumerable<GeoData> Get(string trainNumber, DateTime date);
+        IEnumerable<GeoData> GetLike(string station);
     }
 }

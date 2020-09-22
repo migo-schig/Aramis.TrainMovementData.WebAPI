@@ -1,6 +1,7 @@
 ﻿using Aramis.TrainMovementData.Data;
 using Aramis.TrainMovementData.WebAPI.Configuration;
 using Aramis.TrainMovementData.WebAPI.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -26,9 +27,37 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Repositories
             return context.GeoData.ToList();
         }
 
-        public IEnumerable<GeoData> GetByStation(string station)
+        public GeoData Get(string station)
         {
-            return context.GeoData.Where(e => e.StationShort == station).ToList();
+            return context.GeoData.FirstOrDefault(e => e.StationShort == station);
+        }
+
+        public IEnumerable<GeoData> GetLike(string station)
+        {
+            return context.GeoData.Where(e => EF.Functions.Like(e.StationShort, $"%{station}%")
+            || EF.Functions.Like(e.Station, $"%{station}%"))
+            .ToList();
+        }
+
+        public IEnumerable<GeoData> Get(string trainNumber, DateTime date)
+        {
+            IEnumerable<GeoData> stations = context.Notification
+                .Distinct()
+                .Where(e => e.TrainNumber == trainNumber && e.Date == date)
+                .Join(
+                    context.GeoData,
+                    notification => notification.StationShort,
+                    geoData => geoData.StationShort,
+                    (notification, geoData) => new
+                    {
+                        GeoData = geoData,
+                        StopSequence = notification.StopSequence
+                    })
+                .OrderBy(e => e.StopSequence)
+                .Select(e => e.GeoData)
+                .ToList();
+
+            return stations;
         }
     }
 }
