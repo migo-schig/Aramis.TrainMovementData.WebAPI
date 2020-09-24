@@ -2,16 +2,20 @@
 using System;
 using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Aramis.TrainMovementData.Data
 {
     public partial class AramisDbContext : DbContext
     {
         private readonly string connectionString;
+        private readonly ILoggerFactory loggerFactory;
 
-        public AramisDbContext(DbConnectionStringBuilder connectionStringBuilder)
+        public AramisDbContext(DbConnectionStringBuilder connectionStringBuilder,
+            ILoggerFactory loggerFactory)
         {
             connectionString = connectionStringBuilder.ConnectionString;
+            this.loggerFactory = loggerFactory;
         }
 
         public virtual DbSet<BasicData> BasicData { get; set; }
@@ -27,6 +31,7 @@ namespace Aramis.TrainMovementData.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(connectionString, options => options.EnableRetryOnFailure());
+            optionsBuilder.UseLoggerFactory(loggerFactory);
 
             base.OnConfiguring(optionsBuilder);
         }
@@ -132,6 +137,8 @@ namespace Aramis.TrainMovementData.Data
                 entity.Property(e => e.FileTrainNumber).HasMaxLength(50);
 
                 entity.Property(e => e.TrainNumber).HasMaxLength(10);
+
+                entity.Property(e => e.Timestamp).HasColumnType("datetime2(7)");
             });
 
             modelBuilder.Entity<Modification>(entity =>

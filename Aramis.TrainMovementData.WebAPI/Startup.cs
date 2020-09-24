@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Aramis.TrainMovementData.WebAPI
 {
@@ -56,6 +57,17 @@ namespace Aramis.TrainMovementData.WebAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSerilogRequestLogging();
+            }
+
+            if (env.IsStaging())
+            {
+                Serilog.Log.Logger.Information("Test Environment");
+            }
+
+            if (env.IsProduction())
+            {
+                Serilog.Log.Logger.Information("Production Environment");
             }
 
             app.UseRouting();

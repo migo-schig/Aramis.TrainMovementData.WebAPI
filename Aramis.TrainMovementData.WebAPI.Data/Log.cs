@@ -15,5 +15,6 @@ namespace Aramis.TrainMovementData.Data
         public byte Type { get; set; }
         public string Text { get; set; }
         public string StackTrace { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 }

@@ -14,7 +14,7 @@
       "launchBrowser": false,
       "launchUrl": "",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Staging"
       }
     },
     "Aramis.TrainMovementData.WebAPI": {
@@ -23,7 +23,7 @@
       "launchUrl": "",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Staging"
       }
     }
   }
