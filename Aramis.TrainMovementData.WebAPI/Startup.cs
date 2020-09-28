@@ -1,20 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Threading.Tasks;
 using Aramis.TrainMovementData.Data;
 using Aramis.TrainMovementData.WebAPI.Configuration;
 using Aramis.TrainMovementData.WebAPI.Data.Interfaces;
 using Aramis.TrainMovementData.WebAPI.Data.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
+using System.Data.Common;
 
 namespace Aramis.TrainMovementData.WebAPI
 {
@@ -47,8 +41,10 @@ namespace Aramis.TrainMovementData.WebAPI
                 .AddDbContext<AramisDbContext>(ServiceLifetime.Transient)
                 .AddSingleton(connectionStringBuilder)
                 .AddTransient<IGeoDataRepository, GeoDataRepository>()
-                .AddTransient<ITrainnumberRepository, TrainnumberRepository>();
-
+                .AddTransient<ITrainnumberRepository, TrainnumberRepository>()
+                .AddTransient<IVehicleRepository, VehicleRepository>()
+                .AddTransient<IBasicDataRepository, BasicDataRepository>()
+                .AddTransient<INotificationRepository, NotificationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,16 +54,6 @@ namespace Aramis.TrainMovementData.WebAPI
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSerilogRequestLogging();
-            }
-
-            if (env.IsStaging())
-            {
-                Serilog.Log.Logger.Information("Test Environment");
-            }
-
-            if (env.IsProduction())
-            {
-                Serilog.Log.Logger.Information("Production Environment");
             }
 
             app.UseRouting();

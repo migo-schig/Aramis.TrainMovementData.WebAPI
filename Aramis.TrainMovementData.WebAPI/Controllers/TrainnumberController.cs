@@ -21,18 +21,10 @@ namespace Aramis.TrainMovementData.WebAPI.Controllers
             return trainnumberRepository.GetLike(trainnumber, dateFrom, dateTo);
         }
 
-        // GET: api/<TrainnumberController>
         [HttpGet]
         public IEnumerable<string> Get(string stationShort, DateTime dateFrom, DateTime dateTo)
         {
             return trainnumberRepository.Get(stationShort, dateFrom, dateTo);
-        }
-
-        // GET api/<TrainnumberController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
         }
     }
 }

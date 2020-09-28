@@ -32,7 +32,10 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Repositories
 
         public IEnumerable<string> GetLike(string trainnumber, DateTime dateFrom, DateTime dateTo)
         {
-            return context.BasicData.Where(e =>  e.Date >= dateFrom && e.Date <= dateTo && e.TrainNumber.Contains(trainnumber)).Select(e => e.TrainNumber).ToList();
+            return context.BasicData
+                .Where(e =>  e.Date >= dateFrom && e.Date <= dateTo && e.TrainNumber.Contains(trainnumber))
+                .Select(e => e.TrainNumber)
+                .ToList();
         }
     }
 }

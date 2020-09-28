@@ -43,5 +43,11 @@ namespace Aramis.TrainMovementData.WebAPI.Controllers
         {
             return geoDataRepository.Get(trainnumber, date);
         }
+
+        [HttpGet("filter")]
+        public IEnumerable<GeoData> GetFiltered(int min, int max, string orderer, string operatorString, string tractionprovider, string traincategory, DateTime from, DateTime to)
+        {
+            return geoDataRepository.GetFiltered(min, max, orderer, operatorString, tractionprovider, traincategory, from, to);
+        }
     }
 }
