@@ -27,13 +27,19 @@ namespace Aramis.TrainMovementData.WebAPI.Controllers
             this.notificationRepository = notificationRepository;
         }
 
-        [HttpGet("vehicles/{trainnumber}/date/{date}")]
+        [HttpGet("vehicle/trainnumber/{trainnumber}/date/{date}")]
         public IEnumerable<Vehicle> GetVehicles(string trainnumber, DateTime date)
         {
             return vehicleRepository.GetVehicles(trainnumber, date);
         }
 
-        [HttpGet("basicdata/{trainnumber}/date/{date}")]
+        [HttpGet("basicdata/trainnumber/{trainnumber}/date/{date}")]
+        public BasicData GetBasicData(string trainnumber, DateTime date)
+        {
+            return basicDataRepository.GetBasicData(trainnumber, date);
+        }
+
+        [HttpGet("notification/trainnumber/{trainnumber}/date/{date}")]
         public IEnumerable<Notification> GetNotification(string trainnumber, DateTime date)
         {
             return notificationRepository.GetNotifications(trainnumber, date);
@@ -62,7 +68,5 @@ namespace Aramis.TrainMovementData.WebAPI.Controllers
         {
             return basicDataRepository.GetTractionProvider(tractionprovider);
         }
-        
-        
     }
 }

@@ -21,11 +21,10 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Repositories
             this.settings = config.Value;
         }
 
-        public IEnumerable<BasicData> GetBasicData(string trainnumber, DateTime date)
+        public BasicData GetBasicData(string trainnumber, DateTime date)
         {
-            return context.BasicData.Where(e => e.TrainNumber == trainnumber
-                && e.Date == date)
-                .ToList();
+            return context.BasicData.FirstOrDefault(e => e.TrainNumber == trainnumber
+                && e.Date == date);
         }
 
         public IEnumerable<string> GetTrainCategory(string trainCategory)

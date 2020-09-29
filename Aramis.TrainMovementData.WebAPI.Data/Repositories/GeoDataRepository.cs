@@ -63,7 +63,7 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Repositories
         public IEnumerable<GeoData> GetFiltered(int min,
             int max,
             string orderer,
-            string operaterString,
+            string operatorString,
             string tractionprovider,
             string traincategory,
             DateTime from,
@@ -78,10 +78,10 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Repositories
                     gn => new { gn.TrainNumber, gn.Date },
                     b => new { b.TrainNumber, b.Date },
                     (gn, b) => new { gn.Station, gn.StationShort, gn.Longitude, gn.Latitude, gn.Date, gn.TrainNumber, b.TrainCategory, b.Operator, b.Orderer, b.TractionProvider })
-                .Where(joined => joined.Orderer.Contains(orderer)
-                    && joined.Operator.Contains(operaterString)
-                    && joined.TractionProvider.Contains(tractionprovider)
-                    && joined.TrainCategory.Contains(traincategory)
+                .Where(joined => (joined.Orderer.Contains(orderer) || string.IsNullOrEmpty(orderer))
+                    && (joined.Operator.Contains(operatorString) || string.IsNullOrEmpty(operatorString))
+                    && (joined.TractionProvider.Contains(tractionprovider) || string.IsNullOrEmpty(tractionprovider))
+                    && (joined.TrainCategory.Contains(traincategory) || string.IsNullOrEmpty(traincategory))
                     && joined.Date >= from && joined.Date <= to)
                 .GroupBy(joined => new { joined.StationShort, joined.Station, joined.Latitude, joined.Longitude })
                 .Select(joined => new { joined.Key.Latitude, joined.Key.Longitude, joined.Key.Station, joined.Key.StationShort, Count = joined.Count() })

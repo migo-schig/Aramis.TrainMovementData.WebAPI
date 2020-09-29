@@ -6,7 +6,7 @@ namespace Aramis.TrainMovementData.Data
 {
     public partial class Notification
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string TrainNumber { get; set; }
         public DateTime Date { get; set; }
         public string NotificationType { get; set; }

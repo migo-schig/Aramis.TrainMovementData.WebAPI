@@ -25,6 +25,7 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Repositories
         {
             return context.Notification.Where(e => e.TrainNumber == trainnumber
                 && e.Date == date)
+                .OrderBy(e => e.StopSequence)
                 .ToList();
         }
     }
