@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,33 +22,33 @@ namespace Aramis.TrainMovementData.WebAPI.Controllers
         }
 
         [HttpGet("all")]
-        public IEnumerable<GeoData> GetAll()
+        public async Task<List<GeoData>> GetAllAsync()
         {
-            return geoDataRepository.GetAll();
+            return await geoDataRepository.GetAllAsync();
         }
 
         [HttpGet("station/{station}")]
-        public GeoData GetByStation(string station)
+        public async Task<GeoData> GetByStationAsync(string station)
         {
-            return geoDataRepository.Get(station);
+            return await geoDataRepository.GetAsync(station);
         }
 
         [HttpGet("station/autocomplete/{station}")]
-        public IEnumerable<GeoData> GetByStationAutocomplete(string station)
+        public async Task<List<GeoData>> GetByStationAutocompleteAsync(string station)
         {
-            return geoDataRepository.GetLike(station);
+            return await geoDataRepository.GetLikeAsync(station);
         }
 
         [HttpGet("trainnumber/{trainnumber}/date/{date}")]
-        public IEnumerable<GeoData> GetByStation(string trainnumber, DateTime date)
+        public async Task<List<GeoData>> GetByStationAsync(string trainnumber, DateTime date)
         {
-            return geoDataRepository.Get(trainnumber, date);
+            return await geoDataRepository.GetAsync(trainnumber, date);
         }
 
         [HttpGet("filters")]
-        public IEnumerable<GeoData> GetFiltered(string orderer, string operatorString, string tractionprovider, string traincategory, int min, int max, DateTime from, DateTime to)
+        public async Task<List<GeoData>> GetFiltered(string orderer, string operatorString, string tractionprovider, string traincategory, int min, int max, DateTime from, DateTime to)
         {
-            return geoDataRepository.GetFiltered(min, max, orderer, operatorString, tractionprovider, traincategory, from, to);
+            return await geoDataRepository.GetFilteredAsync(min, max, orderer, operatorString, tractionprovider, traincategory, from, to);
         }
     }
 }

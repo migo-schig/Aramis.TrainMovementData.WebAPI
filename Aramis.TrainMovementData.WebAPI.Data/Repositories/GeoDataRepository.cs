@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Aramis.TrainMovementData.WebAPI.Data.Repositories
 {
@@ -22,26 +23,33 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Repositories
             this.settings = config.Value;
         }
 
-        public IEnumerable<GeoData> GetAll()
+        public Task<List<GeoData>> GetAllAsync()
         {
-            return context.GeoData.ToList();
+            return context.GeoData
+                .AsNoTracking()
+                .ToListAsync();
         }
 
-        public GeoData Get(string station)
+        public Task<GeoData> GetAsync(string station)
         {
-            return context.GeoData.FirstOrDefault(e => e.StationShort == station);
+            return context.GeoData
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.StationShort == station);
         }
 
-        public IEnumerable<GeoData> GetLike(string station)
+        public Task<List<GeoData>> GetLikeAsync(string station)
         {
-            return context.GeoData.Where(e => EF.Functions.Like(e.StationShort, $"%{station}%")
-            || EF.Functions.Like(e.Station, $"%{station}%"))
-            .ToList();
+            return context.GeoData
+                .AsNoTracking()
+                .Where(e => EF.Functions.Like(e.StationShort, $"%{station}%")
+                    || EF.Functions.Like(e.Station, $"%{station}%"))
+                .ToListAsync();
         }
 
-        public IEnumerable<GeoData> Get(string trainNumber, DateTime date)
+        public Task<List<GeoData>> GetAsync(string trainNumber, DateTime date)
         {
-            IEnumerable<GeoData> stations = context.Notification
+            return context.Notification
+                .AsNoTracking()
                 .Distinct()
                 .Where(e => e.TrainNumber == trainNumber && e.Date == date)
                 .Join(
@@ -55,12 +63,10 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Repositories
                     })
                 .OrderBy(e => e.StopSequence)
                 .Select(e => e.GeoData)
-                .ToList();
-
-            return stations;
+                .ToListAsync();
         }
 
-        public IEnumerable<GeoData> GetFiltered(int min,
+        public Task<List<GeoData>> GetFilteredAsync(int min,
             int max,
             string orderer,
             string operatorString,
@@ -70,6 +76,7 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Repositories
             DateTime to)
         {
             return context.GeoData
+                .AsNoTracking()
                 .Join(context.Notification,
                     g => g.StationShort,
                     n => n.StationShort,
@@ -87,7 +94,7 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Repositories
                 .Select(joined => new { joined.Key.Latitude, joined.Key.Longitude, joined.Key.Station, joined.Key.StationShort, Count = joined.Count() })
                 .Where(grouped => grouped.Count >= min && grouped.Count <= max)
                 .Select(grouped => new GeoData { Latitude = grouped.Latitude, Longitude = grouped.Longitude, Station = grouped.Station, StationShort = grouped.StationShort })
-                .ToList();
+                .ToListAsync();
         }
     }
 }

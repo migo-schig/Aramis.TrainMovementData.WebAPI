@@ -28,45 +28,45 @@ namespace Aramis.TrainMovementData.WebAPI.Controllers
         }
 
         [HttpGet("vehicle/trainnumber/{trainnumber}/date/{date}")]
-        public IEnumerable<Vehicle> GetVehicles(string trainnumber, DateTime date)
+        public async Task<List<Vehicle>> GetVehiclesAsync(string trainnumber, DateTime date)
         {
-            return vehicleRepository.GetVehicles(trainnumber, date);
+            return await vehicleRepository.GetVehiclesAsync(trainnumber, date);
         }
 
         [HttpGet("basicdata/trainnumber/{trainnumber}/date/{date}")]
-        public BasicData GetBasicData(string trainnumber, DateTime date)
+        public async Task<BasicData> GetBasicDataAsync(string trainnumber, DateTime date)
         {
-            return basicDataRepository.GetBasicData(trainnumber, date);
+            return await basicDataRepository.GetBasicDataAsync(trainnumber, date);
         }
 
         [HttpGet("notification/trainnumber/{trainnumber}/date/{date}")]
-        public IEnumerable<Notification> GetNotification(string trainnumber, DateTime date)
+        public async Task<List<Notification>> GetNotification(string trainnumber, DateTime date)
         {
-            return notificationRepository.GetNotifications(trainnumber, date);
+            return await notificationRepository.GetNotificationsAsync(trainnumber, date);
         }
 
         [HttpGet("traincategory/{traincategory}")]
-        public IEnumerable<string> GetTrainCategory(string traincategory)
+        public async Task<List<string>> GetTrainCategory(string traincategory)
         {
-            return basicDataRepository.GetTrainCategory(traincategory);
+            return await basicDataRepository.GetTrainCategoryAsync(traincategory);
         }
 
         [HttpGet("orderer/{orderer}")]
-        public IEnumerable<string> GetOrderer(string orderer)
+        public async Task<List<string>> GetOrderer(string orderer)
         {
-            return basicDataRepository.GetOrderer(orderer);
+            return await basicDataRepository.GetOrdererAsync(orderer);
         }
 
         [HttpGet("operator/{operatorString}")]
-        public IEnumerable<string> GetOperator(string operatorString)
+        public async Task<List<string>> GetOperator(string operatorString)
         {
-            return basicDataRepository.GetOperator(operatorString);
+            return await basicDataRepository.GetOperatorAsync(operatorString);
         }
 
         [HttpGet("tractionprovider/{tractionprovider}")]
-        public IEnumerable<string> GetTractionProvider(string tractionprovider)
+        public async Task<List<string>> GetTractionProvider(string tractionprovider)
         {
-            return basicDataRepository.GetTractionProvider(tractionprovider);
+            return await basicDataRepository.GetTractionProviderAsync(tractionprovider);
         }
     }
 }
