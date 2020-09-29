@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Aramis.TrainMovementData.WebAPI.Controllers
 {
@@ -16,15 +17,15 @@ namespace Aramis.TrainMovementData.WebAPI.Controllers
         }
 
         [HttpGet("{trainnumber}/from/{dateFrom}/to/{dateTo}")]
-        public IEnumerable<string> GetLike(string trainnumber, DateTime dateFrom, DateTime dateTo)
+        public async Task<List<string>> GetLikeAsync(string trainnumber, DateTime dateFrom, DateTime dateTo)
         {
-            return trainnumberRepository.GetLike(trainnumber, dateFrom, dateTo);
+            return await trainnumberRepository.GetLikeAsync(trainnumber, dateFrom, dateTo);
         }
 
         [HttpGet]
-        public IEnumerable<string> Get(string stationShort, DateTime dateFrom, DateTime dateTo)
+        public async Task<List<string>> GetAsync(string stationShort, DateTime dateFrom, DateTime dateTo)
         {
-            return trainnumberRepository.Get(stationShort, dateFrom, dateTo);
+            return await trainnumberRepository.GetAsync(stationShort, dateFrom, dateTo);
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Aramis.TrainMovementData.WebAPI.Data.Repositories
 {
@@ -22,24 +23,26 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Repositories
             settings = config.Value;
         }
 
-        public IEnumerable<string> Get(string stationShort, DateTime dateFrom, DateTime dateTo)
+        public Task<List<string>> GetAsync(string stationShort, DateTime dateFrom, DateTime dateTo)
         {
             return context.Notification
+                .AsNoTracking()
                 .Where(e => e.StationShort == stationShort
                 && e.Date >= dateFrom
                 && e.Date <= dateTo)
                 .Select(e => e.TrainNumber)
                 .AsNoTracking()
-                .ToList();
+                .ToListAsync();
         }
 
-        public IEnumerable<string> GetLike(string trainnumber, DateTime dateFrom, DateTime dateTo)
+        public Task<List<string>> GetLikeAsync(string trainnumber, DateTime dateFrom, DateTime dateTo)
         {
             return context.BasicData
+                .AsNoTracking()
                 .Where(e =>  e.Date >= dateFrom && e.Date <= dateTo && e.TrainNumber.Contains(trainnumber))
                 .Select(e => e.TrainNumber)
                 .AsNoTracking()
-                .ToList();
+                .ToListAsync();
         }
     }
 }
