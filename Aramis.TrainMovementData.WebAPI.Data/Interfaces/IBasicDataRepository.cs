@@ -11,5 +11,6 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Interfaces
         IEnumerable<string> GetOrderer(string orderer);
         IEnumerable<string> GetOperator(string operatorString);
         IEnumerable<string> GetTractionProvider(string tractionProvider);
+        IEnumerable<BasicData> GetBasicDataStation(string station, DateTime from, DateTime to);
     }
 }
