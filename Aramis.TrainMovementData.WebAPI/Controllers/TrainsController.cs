@@ -68,5 +68,11 @@ namespace Aramis.TrainMovementData.WebAPI.Controllers
         {
             return await basicDataRepository.GetTractionProviderAsync(tractionprovider);
         }
+
+        [HttpGet("basicdata/station/{station}/from/{from}/to/{to}")]
+        public BasicData GetBasicData(string station, DateTime from, DateTime to)
+        {
+            return basicDataRepository.GetBasicDataStation(station, from, to);
+        }
     }
 }

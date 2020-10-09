@@ -70,5 +70,17 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Repositories
                 .Where(e => e.Contains(tractionProvider))
                 .ToListAsync();
         }
+        public BasicData GetBasicDataStation(string station, DateTime from, DateTime to)
+        {
+            IEnumerable<BasicData> basicdata = context.Notification.Where(e =>
+            e.Date <= to
+            && e.Date >= from
+            && e.Station == station)
+                .Join(context.BasicData,
+                    n => new { n.Date, n.TrainNumber },
+                    b => new { b.Date, b.TrainNumber },
+                    (n, b) => b)
+                .ToList();
+        }
     }
 }
