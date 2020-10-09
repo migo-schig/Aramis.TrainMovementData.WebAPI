@@ -19,7 +19,7 @@ namespace Aramis.TrainMovementData.Data
         public string Source { get; set; }
         public int? DelayMinutes { get; set; }
         public int? AdditionalDelayMinutes { get; set; }
-        public TimeSpan? ProjectedActualTime { get; set; }
+        public DateTime? ProjectedActualTime { get; set; }
         public string ScheduledTrack { get; set; }
         public string ActualTrack { get; set; }
         public string Signal { get; set; }

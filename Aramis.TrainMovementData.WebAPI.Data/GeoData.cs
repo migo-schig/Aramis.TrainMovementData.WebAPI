@@ -6,7 +6,6 @@ namespace Aramis.TrainMovementData.Data
 {
     public partial class GeoData
     {
-        public int Id { get; set; }
         public string Station { get; set; }
         public string StationShort { get; set; }
         public decimal? Latitude { get; set; }

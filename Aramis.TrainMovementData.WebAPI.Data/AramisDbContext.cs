@@ -105,6 +105,9 @@ namespace Aramis.TrainMovementData.Data
 
             modelBuilder.Entity<GeoData>(entity =>
             {
+                entity.HasKey(e => e.StationShort)
+                    .IsClustered(true);
+
                 entity.Property(e => e.Latitude).HasColumnType("decimal(12, 9)");
 
                 entity.Property(e => e.Longitude).HasColumnType("decimal(12, 9)");
@@ -203,7 +206,7 @@ namespace Aramis.TrainMovementData.Data
                     .IsRequired()
                     .HasMaxLength(5);
 
-                entity.Property(e => e.ProjectedActualTime).HasColumnType("time(3)");
+                entity.Property(e => e.ProjectedActualTime).HasColumnType("datetime2(3)");
 
                 entity.Property(e => e.ScheduledRoute).HasMaxLength(10);
 
