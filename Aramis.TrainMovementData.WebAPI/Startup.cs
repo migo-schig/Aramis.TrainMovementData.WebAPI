@@ -37,6 +37,9 @@ namespace Aramis.TrainMovementData.WebAPI
             };
 
             services.AddControllers();
+
+            services.AddSwaggerGen();
+
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"))
                 .AddDbContext<AramisDbContext>(ServiceLifetime.Transient)
                 .AddSingleton(connectionStringBuilder)
@@ -55,6 +58,12 @@ namespace Aramis.TrainMovementData.WebAPI
                 app.UseDeveloperExceptionPage();
                 app.UseSerilogRequestLogging();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Aramis.TrainMovementData.WebAPI v1");
+            });
 
             app.UseRouting();
 

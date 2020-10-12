@@ -12,5 +12,6 @@ namespace Aramis.TrainMovementData.WebAPI.Data.Interfaces
         Task<List<string>> GetOrdererAsync(string orderer);
         Task<List<string>> GetOperatorAsync(string operatorString);
         Task<List<string>> GetTractionProviderAsync(string tractionProvider);
+        Task<BasicData> GetBasicDataStationAsync(string station, DateTime from, DateTime to);
     }
 }
